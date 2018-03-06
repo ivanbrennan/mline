@@ -1,9 +1,0 @@
-{
-  "name" : "mline",
-  "version" : "0.1.0",
-  "author" : "Ivan Brennan <ivan.brennan@gmail.com>",
-  "maintainer" : "Ivan Brennan <ivan.brennan@gmail.com>",
-  "repository" : {"type": "git", "url": "git://github.com/ivanbrennan/mline.git"},
-  "dependencies" : {"fugitive": {}, "pinnacle": {}},
-  "description" : "a nice clean statusline"
-}
