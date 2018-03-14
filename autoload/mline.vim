@@ -1,29 +1,34 @@
-func! statusline#current() abort
+if exists("g:autoloaded_mline") || &cp
+  finish
+endif
+let g:autoloaded_mline = 1
+
+func! mline#current() abort
   return exists('g:actual_curbuf') && bufnr('%') == g:actual_curbuf
 endf
 
-func! statusline#bufname() abort
-  return statusline#current() ? bufname('%') : ''
+func! mline#bufname() abort
+  return mline#current() ? bufname('%') : ''
 endf
-func! statusline#bufname_nc() abort
-  return !statusline#current() ? bufname('%') : ''
-endf
-
-func! statusline#filetype() abort
-  return statusline#current() ? &filetype : ''
-endf
-func! statusline#filetype_nc() abort
-  return !statusline#current() ? &filetype : ''
+func! mline#bufname_nc() abort
+  return !mline#current() ? bufname('%') : ''
 endf
 
-func! statusline#before_filetype() abort
+func! mline#filetype() abort
+  return mline#current() ? &filetype : ''
+endf
+func! mline#filetype_nc() abort
+  return !mline#current() ? &filetype : ''
+endf
+
+func! mline#before_filetype() abort
   return strlen(&filetype) ? '[' : ''
 endf
-func! statusline#after_filetype() abort
+func! mline#after_filetype() abort
   return strlen(&filetype) ? ']' : ''
 endf
 
-func! statusline#branch() abort
+func! mline#branch() abort
   let l:branch = fugitive#head()
   if empty(branch)
     return ''
@@ -34,17 +39,17 @@ endf
 
 let s:highlight_modified = 0
 
-func! statusline#check_modified() abort
+func! mline#check_modified() abort
   if &modified && !s:highlight_modified
     let s:highlight_modified = 1
-    call statusline#update_highlight()
+    call mline#update_highlight()
   elseif !&modified && s:highlight_modified
     let s:highlight_modified = 0
-    call statusline#update_highlight()
+    call mline#update_highlight()
   endif
 endf
 
-func! statusline#update_highlight() abort
+func! mline#update_highlight() abort
   let l:bg = pinnacle#extract_bg('StatusLine')
   let l:fg = pinnacle#extract_fg('StatusLine')
   let l:colors = filter({'bg': l:bg, 'fg': l:fg}, 'v:val != ""')
