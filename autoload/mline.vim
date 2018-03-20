@@ -109,8 +109,8 @@ func! mline#check_modified() abort
 endf
 
 func! mline#update_highlight() abort
-  let l:bg = pinnacle#extract_bg('StatusLine')
-  let l:fg = pinnacle#extract_fg('StatusLine')
+  let l:bg = s:extract_component('StatusLine', 'bg')
+  let l:fg = s:extract_component('StatusLine', 'fg')
   let l:colors = filter({'bg': l:bg, 'fg': l:fg}, 'v:val != ""')
 
   if &modified
@@ -130,6 +130,10 @@ func! mline#update_highlight() abort
   " StatusLine + unconditional italics
   call s:highlight('User3', l:colors, 'italic')
 endf
+
+function! s:extract_component(group, component) abort
+  return synIDattr(synIDtrans(hlID(a:group)), a:component, s:prefix)
+endfunction
 
 func! s:highlight(group, colors, style) abort
   let l:dict = extend(a:colors, {'term': a:style})
