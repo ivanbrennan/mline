@@ -6,12 +6,12 @@ let g:autoloaded_mline = 1
 " This allows colorscheme and any external dependencies to load prior
 " to statusline configuration. Currently fugitive is the only external
 " dependency, though it's optional.
-func! mline#init()
+func! mline#init() abort
   call s:init_statusline()
   call s:init_autocommands()
 endf
 
-func! s:init_statusline()
+func! s:init_statusline() abort
   setg statusline=\                            " space
 
   setg statusline+=%1*                         " User1 highlight group (filename)
@@ -54,7 +54,7 @@ func! s:init_statusline()
   redrawstatus | call mline#update_highlight()
 endf
 
-func! s:init_autocommands()
+func! s:init_autocommands() abort
   augroup Mline
     autocmd!
     autocmd ColorScheme * call mline#update_highlight()
