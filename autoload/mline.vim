@@ -89,9 +89,14 @@ endf
 
 func! mline#branch() abort
   let l:branch = fugitive#head()
-  if empty(branch)
+
+  if empty(l:branch)
     return ''
   else
+    let l:maxwidth = get(g:, 'mline_branch_maxwidth', 0)
+    if l:maxwidth && strlen(l:branch) > l:maxwidth
+      let l:branch = l:branch[:(l:maxwidth - 1)] . '‥'
+    endif
     return '(' . l:branch . ')'
   endif
 endf
