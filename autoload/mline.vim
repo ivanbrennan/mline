@@ -88,7 +88,7 @@ func! mline#after_filetype() abort
 endf
 
 func! mline#branch() abort
-  let l:branch = fugitive#head()
+  let l:branch = FugitiveHead()
 
   if empty(l:branch)
     return ''
